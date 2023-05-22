@@ -10,6 +10,12 @@ class Place(models.Model):
     description_short = models.CharField(max_length=350, verbose_name='Краткое описание')
     description_long = models.TextField(verbose_name='Описание')
 
+    class Meta:
+        ordering = ['id']
+        
+        verbose_name = 'место'
+        verbose_name_plural = 'места'
+
 
     def __str__(self):
         return self.title
@@ -17,7 +23,13 @@ class Place(models.Model):
 class PlaceImage(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(blank=True, verbose_name='фотография')
-    image_number = models.IntegerField(blank=True, verbose_name='Номер картинки')
+    image_number = models.IntegerField(default=0, verbose_name='Номер картинки')
+
+    class Meta:
+        ordering = ['place']
+        
+        verbose_name = 'картинка'
+        verbose_name_plural = 'картинки'
 
     def __str__(self):
         return f'{self.image_number} {self.place}'
