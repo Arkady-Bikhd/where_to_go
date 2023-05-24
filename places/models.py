@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from tinymce.models import HTMLField
 
 class Place(models.Model):
 
@@ -8,7 +7,7 @@ class Place(models.Model):
     latitude = models.FloatField(verbose_name='Широта')
     longitude = models.FloatField(verbose_name='Долгота')
     description_short = models.CharField(max_length=350, verbose_name='Краткое описание')
-    description_long = models.TextField(verbose_name='Описание')
+    description_long = HTMLField(verbose_name='Описание')
 
     class Meta:
         ordering = ['id']
