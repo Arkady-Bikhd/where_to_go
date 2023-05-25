@@ -27,11 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 INTERNAL_IPS = ["127.0.0.1",]
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
+#ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
 
 SECRET_KEY = env.str('SECRET_KEY')
 
-DEBUG = env.bool('DEBUG')
+DEBUG = env.bool('DEBUG', True)
 
 
 # Application definition
@@ -125,7 +125,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-#STATIC_ROOT = env.str('STATIC_ROOT', 'collected_static')
+STATIC_ROOT = env.str('STATIC_ROOT', 'collected_static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
