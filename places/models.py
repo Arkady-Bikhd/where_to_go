@@ -5,8 +5,16 @@ class Place(models.Model):
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     latitude = models.FloatField(verbose_name='Широта')
     longitude = models.FloatField(verbose_name='Долгота')
-    description_short = models.CharField(max_length=350, verbose_name='Краткое описание')
-    description_long = HTMLField(verbose_name='Описание')
+    description_short = models.TextField(
+        verbose_name='Краткое описание',
+        default='',
+        blank=True
+        )
+    description_long = HTMLField(
+        verbose_name='Описание',
+        default='',
+        blank=True
+        )
 
     class Meta:
         ordering = ['id']        
@@ -17,14 +25,13 @@ class Place(models.Model):
         return self.title
     
 
-class PlaceImage(models.Model):
+class Image(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(blank=True, verbose_name='фотография')
+    image = models.ImageField(verbose_name='фотография')
     image_number = models.IntegerField(default=0, verbose_name='Номер картинки')
 
     class Meta:
-        ordering = ['place']
-        
+        ordering = ['place']        
         verbose_name = 'картинка'
         verbose_name_plural = 'картинки'
 
