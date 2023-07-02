@@ -3,10 +3,12 @@ from .models import Place, PlaceImage
 from django.utils.html import format_html
 from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
 
-def preview_image(self, place_image):
 
-    return format_html('<img src="{url}" height=200 />',
-                url= place_image.image.url)
+def preview_image(self, place_image):
+    return format_html(
+        '<img src="{url}" height=200 />',
+        url=place_image.image.url
+        )
 
 
 class PlaceImageInline(SortableInlineAdminMixin, admin.TabularInline):    
@@ -30,6 +32,4 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 class PlaceImageAdmin(admin.ModelAdmin):
     preview_image = preview_image
     readonly_fields = ('preview_image',)
-
-
-
+    

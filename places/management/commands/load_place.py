@@ -44,3 +44,4 @@ class Command(BaseCommand):
                     image_number=number
                 )
             print(f'Объект {title} с соответсвующими изображениями создан')
+            
