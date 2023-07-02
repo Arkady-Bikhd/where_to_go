@@ -2,7 +2,7 @@ import requests
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 
-from ...models import Place, PlaceImage
+from ...models import Place, Image
 
 
 class Command(BaseCommand):
@@ -38,10 +38,9 @@ class Command(BaseCommand):
                     image_response.content,
                     name=f'{title}{number}.jpg'
                 )
-                PlaceImage.objects.create(
+                Image.objects.create(
                     place=place,
                     image=image_file,
                     image_number=number
                 )
             print(f'Объект {title} с соответсвующими изображениями создан')
-            
