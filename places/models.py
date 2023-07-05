@@ -7,13 +7,11 @@ class Place(models.Model):
     latitude = models.FloatField(verbose_name='Широта')
     longitude = models.FloatField(verbose_name='Долгота')
     description_short = models.TextField(
-        verbose_name='Краткое описание',
-        default='',
+        verbose_name='Краткое описание',        
         blank=True
     )
     description_long = HTMLField(
-        verbose_name='Описание',
-        default='',
+        verbose_name='Описание',        
         blank=True
     )
 
