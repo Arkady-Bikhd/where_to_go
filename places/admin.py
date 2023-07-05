@@ -8,7 +8,7 @@ def preview_image(self, place_image):
     return format_html(
         '<img src="{url}" height=200 />',
         url=place_image.image.url
-        )
+    )
 
 
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
