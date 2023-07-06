@@ -18,9 +18,7 @@ class ImageInline(SortableTabularInline, admin.TabularInline, ImagePreviewMixin)
     model = Image
     fields = ('image', 'preview', 'image_number')
     ordering = ['image_number']
-    readonly_fields = ['preview']   
-   # preview = ImagePreviewMixin.preview
-  #  preview.short_description = 'Просмотр'
+    readonly_fields = ['preview']    
     extra = 3
 
 
@@ -32,6 +30,5 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin, ImagePreviewMixin):
-    preview = ImagePreviewMixin.preview
+class ImageAdmin(admin.ModelAdmin, ImagePreviewMixin):    
     readonly_fields = ['preview']
