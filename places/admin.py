@@ -1,23 +1,26 @@
 from django.contrib import admin
 from .models import Place, Image
 from django.utils.html import format_html
-from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
+from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin, SortableTabularInline
 
 
-def preview_image(self, place_image):
-    return format_html(
-        '<img src="{url}" height=200 />',
-        url=place_image.image.url
-    )
+class ImagePreviewMixin:
+    def preview(self, image):
+        image_url = image.image_url
+        height = 200
+        return format_html(
+            '<img src="{}" height={} />',
+            image_url, height
+        )
 
 
-class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
+class ImageInline(SortableTabularInline, admin.TabularInline, ImagePreviewMixin):
     model = Image
-    fields = ('image', 'preview_image', 'image_number')
+    fields = ('image', 'preview', 'image_number')
     ordering = ['image_number']
-    preview_image = preview_image
-    readonly_fields = ('preview_image',)   
-    preview_image.short_description = 'Просмотр'
+    readonly_fields = ['preview']   
+   # preview = ImagePreviewMixin.preview
+  #  preview.short_description = 'Просмотр'
     extra = 3
 
 
@@ -29,6 +32,6 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
-    preview_image = preview_image
-    readonly_fields = ('preview_image',)
+class ImageAdmin(admin.ModelAdmin, ImagePreviewMixin):
+    preview = ImagePreviewMixin.preview
+    readonly_fields = ['preview']
