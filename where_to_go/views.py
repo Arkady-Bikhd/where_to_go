@@ -32,7 +32,7 @@ def show_index_page(request):
     return render(request, 'index.html', context)
 
 
-def upload_place(request, place_id):
+def get_place(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     place_info = {
         'title': place.title,
