@@ -44,9 +44,7 @@ def upload_place(request, place_id):
             'lng': place.longitude,
         }
     }
-    responce = JsonResponse(
-        place_info,        
+    return JsonResponse(
+        place_info,
         json_dumps_params={'ensure_ascii': False}
     )
-
-    return responce

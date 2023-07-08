@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser) -> None:
         parser.add_argument('url', type=str, help='адрес файла данных в формате json')
-        
+
     def handle(self, *args, **options) -> str | None:
         json_file_url = options['url']
         response = requests.get(json_file_url)
@@ -42,4 +42,4 @@ class Command(BaseCommand):
                     image=image_file,
                     image_number=number
                 )
-            print(f'Объект {title} с соответсвующими изображениями создан')
+            print(f'Объект {title} с соответствующими изображениями создан')
