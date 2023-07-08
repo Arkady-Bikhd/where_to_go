@@ -10,7 +10,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser) -> None:
         parser.add_argument('url', type=str, help='адрес файла данных в формате json')
-
         
     def handle(self, *args, **options) -> str | None:
         json_file_url = options['url']
