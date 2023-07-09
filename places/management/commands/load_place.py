@@ -17,11 +17,11 @@ class Command(BaseCommand):
         response.raise_for_status()
         place_params = response.json()
         title = place_params['title']
-        description_short = place_params['description_short']
-        description_long = place_params['description_long']
+        description_short = place_params.get(['description_short'], '')
+        description_long = place_params.get(['description_long'], '')
         latitude = place_params['coordinates']['lat']
         longitude = place_params['coordinates']['lng']
-        image_urls = place_params['imgs']
+        image_urls = place_params.get(['imgs'], [])
         place, created = Place.objects.get_or_create(
             title=title,
             description_short=description_short,
