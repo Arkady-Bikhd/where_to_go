@@ -30,16 +30,20 @@ class Command(BaseCommand):
             longitude=longitude
         )
         if created:
-            for number, image_url in enumerate(image_urls):
-                image_response = requests.get(image_url)
-                image_response.raise_for_status()
-                image_file = ContentFile(
-                    image_response.content,
-                    name=f'{title}{number}.jpg'
-                )
-                Image.objects.create(
-                    place=place,
-                    image=image_file,
-                    image_number=number
-                )
+            save_place_image(place, image_urls)
             print(f'Объект {title} с соответствующими изображениями создан')
+
+
+def save_place_image(place, image_urls) -> None:
+    for number, image_url in enumerate(image_urls):
+        image_response = requests.get(image_url)
+        image_response.raise_for_status()
+        image_file = ContentFile(
+            image_response.content,
+            name=f'{title}_{number}.jpg'
+        )
+        Image.objects.create(
+            place=place,
+            image=image_file,
+            image_number=number
+        )
