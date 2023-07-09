@@ -24,10 +24,12 @@ class Command(BaseCommand):
         image_urls = place_params.get(['imgs'], [])
         place, created = Place.objects.get_or_create(
             title=title,
-            description_short=description_short,
-            description_long=description_long,
-            latitude=latitude,
-            longitude=longitude
+            defaults={
+                description_short: description_short,
+                description_long: description_long,
+                latitude: latitude,
+                longitude: longitude,
+            }
         )
         if created:
             save_place_image(place, image_urls)
