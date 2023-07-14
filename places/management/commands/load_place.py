@@ -16,31 +16,24 @@ class Command(BaseCommand):
         response = requests.get(json_file_url)
         response.raise_for_status()
         place_params = response.json()
-        try:
-            title = place_params['title']
-            description_short = place_params.get(['description_short'], '')
-            description_long = place_params.get(['description_long'], '')
-            latitude = place_params['coordinates']['lat']
-            longitude = place_params['coordinates']['lng']
-            image_urls = place_params.get(['imgs'], [])
-        except KeyError:
-            print('Файл содержит неполные данные')
-            return
-        try:
-            place, created = Place.objects.get_or_create(
-                title=title,
-                defaults={
-                    description_short: description_short,
-                    description_long: description_long,
-                    latitude: latitude,
-                    longitude: longitude,
-                }
-            )            
-            if created:
-                save_place_image(place, image_urls)
-                print(f'Объект {title} с соответствующими изображениями создан')
-        except Place.MultipleObjectsReturned:
-            print('В базе данных найдено несколько записей')
+        title = place_params['title']
+        description_short = place_params.get(['description_short'], '')
+        description_long = place_params.get(['description_long'], '')
+        latitude = place_params['coordinates']['lat']
+        longitude = place_params['coordinates']['lng']
+        image_urls = place_params.get(['imgs'], [])
+        place, created = Place.objects.get_or_create(
+            title=title,
+            defaults={
+                description_short: description_short,
+                description_long: description_long,
+                latitude: latitude,
+                longitude: longitude,
+            }
+        )
+        if created:
+            save_place_image(place, image_urls)
+            print(f'Объект {title} с соответствующими изображениями создан')
 
 
 def save_place_image(place, image_urls) -> None:
