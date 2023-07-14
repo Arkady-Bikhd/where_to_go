@@ -56,3 +56,4 @@ def save_place_image(place, image_urls) -> None:
             image=image_file,
             image_number=number
         )
+        
